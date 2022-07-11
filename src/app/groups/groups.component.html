@@ -1,0 +1,37 @@
+<div class="container" style="background-color: gray; height: 100%;">
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+        <mat-card fxFlex="40">
+            <mat-card-title>Grupos</mat-card-title>
+            <div fxLayout="column">
+
+                <app-search-box (textChanged)="selectedFilterText = $any($event)"></app-search-box>
+            </div>
+            <div>
+                <div cdkDropList #todoList="cdkDropList"
+                    [cdkDropListData]="groups | listFilter: selectedFilterText:dummy"
+                    [cdkDropListConnectedTo]="[doneList]" class="example-list" cdkDropListSortingDisabled
+                    (cdkDropListDropped)="drop($any($event))">
+                    <div class="example-box" *ngFor="let item of groups | listFilter: selectedFilterText:dummy"
+                        [cdkDragData]="item.name" cdkDrag>{{item.name}}
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+        <mat-card fxFlex="40">
+            <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="employees" [cdkDropListConnectedTo]="[todoList]"
+                class="example-list" (cdkDropListDropped)="drop($any($event))">
+                    
+                    <div [formGroup]="employeesForm" style="max-height: 250px; overflow-y:auto;">
+                        <div class="example-box" *ngFor="let item of array; let i = index" style="background-color: rgba(128, 128, 128, 0.797);">
+                            <table>
+                                <td *ngFor="let c of item">
+                                    <mat-checkbox fxFlex="50" (change)="setEmployees(c, $any($event.checked))" [checked]="false"></mat-checkbox> {{c.last_name}}
+                                </td>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+            <button mat-raised-button color="accent" (click)="showEmployees()">Continuar</button>
+        </mat-card>
+    </div>
+</div>

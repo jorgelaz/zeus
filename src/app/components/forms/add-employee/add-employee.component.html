@@ -1,0 +1,36 @@
+<mat-progress-bar *ngIf='isLoading' mode='indeterminate'></mat-progress-bar>
+<div fxLayout='column' fxLayoutGap="1rem">
+    <h3 class='title-global'> Agregar usuario </h3>
+    <form [formGroup]='addEmployeeFormGroup' fxFlex fxLayout='column' fxLayoutGap='1rem'>
+        <mat-form-field appearance='outline'>
+            <mat-label> Nombre </mat-label>
+            <input matInput type='text' formControlName='name' maxlength="30">
+            <mat-error *ngIf="nameFormControl.hasError('required')">
+                Nombre <strong> es requerido.</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance='outline'>
+            <mat-label> Apellido </mat-label>
+            <input matInput formControlName='lastName' maxlength="30">
+            <mat-error *ngIf="lastNameFormControl.hasError('required')">
+                Apellido <strong> es requerido.</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthday">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="lastNameFormControl.hasError('required')">
+                La fecha de nacimiento <strong>es requerido.</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+
+
+    <div fxLayout='row' fxLayoutAlign='space-between center'>
+        <button mat-raised-button class='style-button-cancel' [disabled]='isLoading' (click)='dialogRef.close(false)'> Cancelar </button>
+        <button mat-raised-button class='style-button-global' (click)='addEmployee()'
+            [disabled]='addEmployeeFormGroup.invalid || isLoading'>Aceptar</button>
+    </div>
+</div>

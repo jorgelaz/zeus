@@ -1,0 +1,60 @@
+<div class="container" fxLayoutAlign="center center" style="background-color: gray; height: 100%; overflow: hidden;">
+
+    <div fxLayout="column" fxFlex="80">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1vw">
+                <mat-form-field appearance="outline">
+                    <mat-label>Buscar empleado</mat-label>
+                    <input type="text" matInput autocomplete="off" placeholder="Buscar empleado"
+                        (keyup)="filter($any($event.target).value)">
+                    <mat-icon matPrefix>search</mat-icon>
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-mini-fab class="style-button-add-icon" (click)="addEmployee()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+
+        </div>
+
+        <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+            <div fxLayout="column" fxFlex="100" class="table-scroll-x">
+
+                <table id="customers" mat-table [dataSource]="dataSource">
+
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef><span fxLayoutAlign="start">ID</span> </th>
+                        <td mat-cell *matCellDef="let element "><span fxLayoutAlign="start"> {{ element.id }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef><span fxLayoutAlign="start">Nombre</span> </th>
+                        <td mat-cell *matCellDef="let element "><span fxLayoutAlign="start"> {{ element.name }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="last_name">
+                        <th mat-header-cell *matHeaderCellDef><span fxLayoutAlign="start">Apellido</span> </th>
+                        <td mat-cell *matCellDef="let element "><span fxLayoutAlign="start"> {{ element.last_name
+                                }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="birthday">
+                        <th mat-header-cell *matHeaderCellDef><span fxLayoutAlign="start">Fecha de nacimiento</span>
+                        </th>
+                        <td mat-cell *matCellDef="let element"><span fxLayoutAlign="start"> {{ element.birthday }}</span></td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+
+        </div>
+    </div>
+</div>
